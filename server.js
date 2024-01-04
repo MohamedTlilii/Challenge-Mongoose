@@ -9,7 +9,7 @@ const DBPWD = process.env.DBPWD;
 app.use(express.json());
 mongoose
   .connect(
-    `mongodb+srv://${DBUSER}:${DBPWD}@mycluster.gww0avb.mongodb.net/db-contacts?retryWrites=true&w=majority`
+    `mongodb+srv://MohamedTlili:mohamed1234@mycluster.t5ajheo.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
@@ -33,43 +33,41 @@ app.post("/add-contact", async (req, res) => {
     if (error) {
       console.log(error);
     }
-    // res
-    //   .status(400)
-    //   .json({ status: false, error: error.errors["email"].message });
-  //   if (error.errors["fullName"]) {
-  //     return res
-  //       .status(401)
-  //       .json({ status: false, error: error.errors["fullName"].message });
-  //   }
-  //   if (error.errors["email"]) {
-  //     return res
-  //       .status(401)
-  //       .json({ status: false, error: error.errors["email"].message });
-  //   }
-  //   if (error.errors["phone"]) {
-  //     return res
-  //       .status(401)
-  //       .json({ status: false, error: error.errors["phone"].message });
-  //   }
-  //   if (error.errors["gender"]) {
-  //     return res
-  //       .status(401)
-  //       .json({ status: false, error: error.errors["gender"].message });
-  //   }
-  //   if (error.errors["desc"]) {
-  //     return res
-  //       .status(401)
-  //       .json({ status: false, error: error.errors["desc"].message });
-  //   }
-  //   if (error.errors["birthDate"]) {
-  //     return res
-  //       .status(401)
-  //       .json({ status: false, error: error.errors["birthDate"].message });
-  //   }
-  // }
+    res
+      .status(400)
+      .json({ status: false, error: error.errors["email"].message });
+    if (error.errors["fullName"]) {
+      return res
+        .status(401)
+        .json({ status: false, error: error.errors["fullName"].message });
+    }
+    if (error.errors["email"]) {
+      return res
+        .status(401)
+        .json({ status: false, error: error.errors["email"].message });
+    }
+    if (error.errors["phone"]) {
+      return res
+        .status(401)
+        .json({ status: false, error: error.errors["phone"].message });
+    }
+    if (error.errors["gender"]) {
+      return res
+        .status(401)
+        .json({ status: false, error: error.errors["gender"].message });
+    }
+    if (error.errors["desc"]) {
+      return res
+        .status(401)
+        .json({ status: false, error: error.errors["desc"].message });
+    }
+    if (error.errors["birthDate"]) {
+      return res
+        .status(401)
+        .json({ status: false, error: error.errors["birthDate"].message });
+    }
+  }
 });
-
-
 
 app.listen(5000, (err) => {
   if (err) throw err;
