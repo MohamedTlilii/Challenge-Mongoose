@@ -9,11 +9,11 @@ const DBPWD = process.env.DBPWD;
 app.use(express.json());
 mongoose
   .connect(
-    `mongodb+srv://MohamedTlili:mohamed1234@mycluster.t5ajheo.mongodb.net/contact-app?retryWrites=true&w=majority`
+    `mongodb+srv://${DBUSER}:${DBPWD}@mycluster.t5ajheo.mongodb.net/contact-app?retryWrites=true&w=majority`
   )
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
-
+// Post Contacts
 app.post("/add-contact", async (req, res) => {
   try {
     let { fullName, email, phone, birthDate, gender, desc } = req.body;
@@ -65,6 +65,37 @@ app.post("/add-contact", async (req, res) => {
         .json({ status: false, error: error.errors["birthDate"].message });
     }
   }
+});
+
+// Get Contact
+app.get("/get-contact", async (req, res) => {
+  const contacts = await Contact.find();
+  res.json({ data: contacts });
+});
+
+// Update Contact
+app.put("/put-contact/:id", async (req, res) => {
+  let { id } = req.params;
+  let { fullName } = req.body;
+  const contacts = await Contact.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        ...req.body,
+      },
+    },
+    { new: true }
+  );
+  res.json({ data: contacts });
+});
+
+// Delete Contact
+app.delete("/delete-contact", async (req, res) => {
+  const contacts = await Contact.deleteOne(
+    { fullName: "Saida Jouini" },
+    { new: true }
+  );
+  res.json({ data: contacts });
 });
 
 app.listen(5000, (err) => {
