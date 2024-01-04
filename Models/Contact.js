@@ -16,10 +16,10 @@ const contactSchema = new Schema(
       ],
     },
     phone: {
-      type: Number,
+      type: String,
       required: [true, "Please insert the phone number"],
-      // min: [8, "Minimum 8 numbers"],
-      // max: [8, "Maximum 8 numbers"],
+      minLength: [8, "Minimum 8 numbers"],
+      maxLength: [8, "Maximum 8 numbers"],
     },
     gender: {
       type: String,

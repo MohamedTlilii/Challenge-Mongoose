@@ -9,7 +9,7 @@ const DBPWD = process.env.DBPWD;
 app.use(express.json());
 mongoose
   .connect(
-    `mongodb+srv://MohamedTlili:mohamed1234@mycluster.t5ajheo.mongodb.net/?retryWrites=true&w=majority`
+    `mongodb+srv://MohamedTlili:mohamed1234@mycluster.t5ajheo.mongodb.net/contact-app?retryWrites=true&w=majority`
   )
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
@@ -33,9 +33,7 @@ app.post("/add-contact", async (req, res) => {
     if (error) {
       console.log(error);
     }
-    res
-      .status(400)
-      .json({ status: false, error: error.errors["email"].message });
+
     if (error.errors["fullName"]) {
       return res
         .status(401)
